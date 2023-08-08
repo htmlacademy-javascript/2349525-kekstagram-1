@@ -3,10 +3,7 @@
 function isPalindrome(string) {
   const newString = string.toLowerCase().replaceAll(' ', '');
   const newStringReverse = reverseString(newString);
-  if (newString === newStringReverse) {
-    return true;
-  }
-  return false;
+  return newString === newStringReverse;
 }
 
 function reverseString(string) {
@@ -32,6 +29,9 @@ isPalindrome('Лёша на полке клопа нашёл ');
 function getNumber (value) {
   let string = '';
   if (typeof value !== 'string') {
+    if (typeof value !== 'number') {
+      return NaN;
+    }
     value = value.toString();
   }
   for (let i = 0; i < value.length; i++) {
@@ -89,10 +89,7 @@ addSymbolsToString('qwerty', 4, '0');
 // Task 4
 // Функция для проверки длины строки.
 function isLessThanMax(string, maxLength) {
-  if (string.length <= maxLength) {
-    return true;
-  }
-  return false;
+  return string.length <= maxLength;
 }
 
 isLessThanMax('проверяемая строка', 20);
