@@ -50,27 +50,21 @@ const PHOTOS_NAMES = [
   'Девушка с корзиной цветов',
 ];
 
-const descriptionCreationRules = {
-  minPhotoID: 1,
-  maxPhotoID: 25,
-  minPhotoNumber: 1,
-  maxPhotoNumber: 25,
-  minQuantityLikes: 15,
-  maxQuantityLikes: 200,
-  minQuantityComments: 1,
-  maxQuantityComments: 3,
-};
+// Rules for creating a DESCRIPTION
+const MIN_PHOTO_ID = 1;
+const MAX_PHOTO_ID = 25;
+const MIN_PHOTO_NUMBER = 1;
+const MAX_PHOTO_NUMBER = 25;
+const MIN_QUANTITY_LIKES = 15;
+const MAX_QUANTITY_LIKES = 200;
+const MIN_QUANTITY_COMMENTS = 1;
+const MAX_QUANTITY_COMMENTS = 3;
 
-const {minPhotoID, maxPhotoID, minPhotoNumber, maxPhotoNumber, minQuantityLikes, maxQuantityLikes, minQuantityComments, maxQuantityComments} = descriptionCreationRules;
-
-const commentCreationRules = {
-  minCommentID: 1,
-  maxCommentID: 1000,
-  minAvatarNumber: 1,
-  maxAvatarNumber: 6,
-};
-
-const {minCommentID, maxCommentID, minAvatarNumber, maxAvatarNumber} = commentCreationRules;
+// Rules for creating a COMMENT
+const MIN_COMMENT_ID = 1;
+const MAX_COMMENT_ID = 1000;
+const MIN_AVATAR_NUMBER = 1;
+const MAX_AVATAR_NUMBER = 6;
 
 function createId () {
   let lastGeneratedId = 0;
@@ -89,7 +83,7 @@ const getRandomInteger = function (min, max) {
   return Math.floor(result);
 };
 
-const createRandomIdFromRangeGenerator = function (min, max) {
+const createRandomId = function (min, max) {
   const previousValues = [];
 
   return function () {
@@ -107,15 +101,15 @@ const createRandomIdFromRangeGenerator = function (min, max) {
 
 const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
 
-const generateCommentId = createRandomIdFromRangeGenerator(minCommentID, maxCommentID);
-const generatePhotoId = createId(minPhotoID, maxPhotoID);
-const generatePhotoNumber = createId(minPhotoNumber, maxPhotoNumber);
-const generatePhotosNamesIndex = createRandomIdFromRangeGenerator(1, PHOTOS_NAMES.length);
+const generateCommentId = createRandomId(MIN_COMMENT_ID, MAX_COMMENT_ID);
+const generatePhotoId = createId(MIN_PHOTO_ID, MAX_PHOTO_ID);
+const generatePhotoNumber = createId(MIN_PHOTO_NUMBER, MAX_PHOTO_NUMBER);
+const generatePhotosNamesIndex = createRandomId(1, PHOTOS_NAMES.length);
 
 const createComment = function () {
   return {
     id: generateCommentId(),
-    avatar: `img/avatar-${getRandomInteger(minAvatarNumber, maxAvatarNumber)}.svg`,
+    avatar: `img/avatar-${getRandomInteger(MIN_AVATAR_NUMBER, MAX_AVATAR_NUMBER)}.svg`,
     message: getRandomArrayElement(MESSAGE_TEXT),
     name: getRandomArrayElement(USERS_NAMES),
   };
@@ -126,8 +120,8 @@ const createPhotoDescription = function () {
     id: generatePhotoId(),
     url: `photos/${generatePhotoNumber()}.jpg`,
     description: PHOTOS_NAMES[generatePhotosNamesIndex() - 1],
-    likes: getRandomInteger(minQuantityLikes, maxQuantityLikes),
-    comments: Array.from({length:getRandomInteger(minQuantityComments, maxQuantityComments)}, createComment),
+    likes: getRandomInteger(MIN_QUANTITY_LIKES, MAX_QUANTITY_LIKES),
+    comments: Array.from({length:getRandomInteger(MIN_QUANTITY_COMMENTS, MAX_QUANTITY_COMMENTS)}, createComment),
   };
 };
 
