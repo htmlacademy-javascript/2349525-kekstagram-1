@@ -1,3 +1,3 @@
-import {createArrayDescriptions} from './creating-descriptions.js';
+import {createArrayDescriptions} from './create-array-descriptions.js';
 
 createArrayDescriptions();
