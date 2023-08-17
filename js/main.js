@@ -1,3 +1,4 @@
-import {createArrayDescriptions} from './create-array-descriptions.js';
+import {createArrayMedia} from './create-array-media.js';
+import {renderThumbnails} from './render-thumbnails.js';
 
-createArrayDescriptions();
+renderThumbnails(createArrayMedia());
