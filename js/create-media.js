@@ -45,7 +45,7 @@ const generateMediaId = createId(MIN_MEDIA_ID, MAX_MEDIA_ID);
 const generateMediaNumber = createId(MIN_MEDIA_NUMBER, MAX_MEDIA_NUMBER);
 const generateMediaNamesIndex = createRandomId(1, MEDIA_NAMES.length);
 
-export const createDescription = function () {
+export const createMedia = function () {
   return {
     id: generateMediaId(),
     url: `photos/${generateMediaNumber()}.jpg`,
