@@ -32,7 +32,7 @@ const USERS_NAMES = [
 
 const generateCommentId = createRandomId(MIN_COMMENT_ID, MAX_COMMENT_ID);
 
-export const createComment = function () {
+export const createObjectComment = function () {
   return {
     id: generateCommentId(),
     avatar: `img/avatar-${getRandomInteger(MIN_AVATAR_NUMBER, MAX_AVATAR_NUMBER)}.svg`,
