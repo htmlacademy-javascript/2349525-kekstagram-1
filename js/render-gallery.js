@@ -1,5 +1,5 @@
 import {renderThumbnails} from './render-thumbnails.js';
-import {showBigPicture} from './big-picture.js';
+import {showModalMedia} from './modal-media.js';
 
 const container = document.querySelector('.pictures');
 
@@ -17,6 +17,6 @@ export const renderGallery = function (arrayMedia) {
       (item) => item.id === +thumbnail.dataset.thumbnailId
     );
 
-    showBigPicture(elementMedia);
+    showModalMedia(elementMedia);
   });
 };

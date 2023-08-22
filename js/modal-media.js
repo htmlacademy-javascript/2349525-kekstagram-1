@@ -1,4 +1,5 @@
 import {isEscapeKey} from './helpers/test-keys.js';
+import {renderFullSizeMedia} from './render-full-size-media.js';
 
 const bigPicture = document.querySelector('.big-picture');
 const socialCommentCount = document.querySelector('.social__comment-count');
@@ -9,37 +10,41 @@ const buttonClose = document.querySelector('.big-picture__cancel');
 const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    hideBigPicture();
+    hideModalMedia();
   }
 };
 
-function hideBigPicture () {
+const onDocumentClick = (evt) => {
+  if (evt.target === bigPicture) {
+    evt.preventDefault();
+    hideModalMedia();
+  }
+};
+
+function hideModalMedia () {
   bigPicture.classList.add('hidden');
   socialCommentCount.classList.remove('hidden');
   commentsLoader.classList.remove('hidden');
   body.classList.remove('modal-open');
 
   document.removeEventListener('keydown', onDocumentKeydown);
-
+  document.removeEventListener('click', onDocumentClick);
   buttonClose.removeEventListener('click', () => {
-    hideBigPicture();
+    hideModalMedia();
   });
 }
 
-export function showBigPicture ({url, likes, comments, description}) {
+export function showModalMedia (arrayMedia) {
   bigPicture.classList.remove('hidden');
   socialCommentCount.classList.add('hidden');
   commentsLoader.classList.add('hidden');
   body.classList.add('modal-open');
 
-  bigPicture.querySelector('.big-picture__img').querySelector('img').src = url;
-  bigPicture.querySelector('.likes-count').textContent = likes;
-  bigPicture.querySelector('.comments-count').textContent = comments.length;
-  bigPicture.querySelector('.social__caption').textContent = description;
-
   document.addEventListener('keydown', onDocumentKeydown);
-
+  document.addEventListener('click', onDocumentClick);
   buttonClose.addEventListener('click', () => {
-    hideBigPicture();
+    hideModalMedia();
   });
+
+  renderFullSizeMedia(arrayMedia);
 }

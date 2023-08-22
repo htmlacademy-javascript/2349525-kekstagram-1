@@ -1,7 +1,7 @@
 import {createArrayByLength} from './helpers/create-array-by-length.js';
 import {createId, createRandomId} from './helpers/id-creators.js';
 import {getRandomInteger} from './helpers/get-random-integer.js';
-import {createComment} from './create-comment.js';
+import {createObjectComment} from './create-object-comment.js';
 
 // Rules for creating a DESCRIPTION
 const MIN_MEDIA_ID = 1;
@@ -45,12 +45,12 @@ const generateMediaId = createId(MIN_MEDIA_ID, MAX_MEDIA_ID);
 const generateMediaNumber = createId(MIN_MEDIA_NUMBER, MAX_MEDIA_NUMBER);
 const generateMediaNamesIndex = createRandomId(1, MEDIA_NAMES.length);
 
-export const createMedia = function () {
+export const createObjectMedia = function () {
   return {
     id: generateMediaId(),
     url: `photos/${generateMediaNumber()}.jpg`,
     description: MEDIA_NAMES[generateMediaNamesIndex() - 1],
     likes: getRandomInteger(MIN_QUANTITY_LIKES, MAX_QUANTITY_LIKES),
-    comments: createArrayByLength(getRandomInteger(MIN_QUANTITY_COMMENTS, MAX_QUANTITY_COMMENTS), createComment),
+    comments: createArrayByLength(getRandomInteger(MIN_QUANTITY_COMMENTS, MAX_QUANTITY_COMMENTS), createObjectComment),
   };
 };
