@@ -1,4 +1,4 @@
 import {createArrayMedia} from './create-array-media.js';
-import {renderThumbnails} from './render-thumbnails.js';
+import {renderGallery} from './gallery.js';
 
-renderThumbnails(createArrayMedia());
+renderGallery(createArrayMedia());
