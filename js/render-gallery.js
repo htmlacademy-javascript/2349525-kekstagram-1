@@ -13,6 +13,8 @@ export const renderGallery = function (arrayMedia) {
       return;
     }
 
+    evt.preventDefault();
+
     const elementMedia = arrayMedia.find(
       (item) => item.id === +thumbnail.dataset.thumbnailId
     );
