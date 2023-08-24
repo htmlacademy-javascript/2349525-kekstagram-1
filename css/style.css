@@ -1408,3 +1408,12 @@ main {
 .hidden {
   display: none;
 }
+
+.img-upload__field-wrapper--invalid {
+  padding: 5px;
+  border: 2px solid #ff0000;
+  line-height: 18px;
+  text-align: left;
+  text-transform: none;
+  white-space: pre;
+}
