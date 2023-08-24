@@ -1,7 +1,8 @@
 import {isEscapeKey} from './helpers/test-keys.js';
 import {validateTags} from './validate-tags.js';
+import {showModal, hideModal} from './modal.js';
+import {addOnButtonCloseClick, addEventListenerKeydown} from './helpers/event-listeners.js';
 
-const body = document.querySelector('body');
 const formUpload = document.querySelector('.img-upload__form');
 const blockUploadOverlay = formUpload.querySelector('.img-upload__overlay');
 const fieldUploadFile = formUpload.querySelector('#upload-file');
@@ -10,7 +11,17 @@ const fieldComment = formUpload.querySelector('.text__description');
 const buttonClose = formUpload.querySelector('#upload-cancel');
 const fieldsText = [fieldHashtag, fieldComment];
 
-const HASHTAG_ERROR_TEXT = 'Некорректно указаны хэш-теги';
+const HASHTAG_ERROR_TEXT =
+  `Хэш-тег(и) не соответсвует(-ют) правилам заполнения хэш-тегов:
+  1. Xэш-теги начинаются с символа #(решётка);
+  2. Строка после решётки:
+    - состоит из букв и чисел;
+    - не содержит пробелы, спецсимволы (#, @, $ и т. п.),
+      символы пунктуации, эмодзи и т.д.;
+  3. Длина одного хэш-тега не более 20 символов, включая решётку;
+  4. Xэш-теги разделяются пробелами;
+  5. Один и тот же хэш-тег не может быть использован дважды;
+  6. Нельзя указать больше пяти хэш-тегов;`;
 
 const pristine = new Pristine(formUpload, {
   classTo: 'img-upload__field-wrapper',
@@ -19,63 +30,28 @@ const pristine = new Pristine(formUpload, {
 });
 
 const onInputFileChange = () => {
-  showModal();
+  showModalForm();
 };
 
 function onDocumentKeydown(evt) {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    hideModal();
+    hideModalForm();
   }
 }
 
-const addEventListenerKeydown = (elements) => {
-  elements.forEach((elemetn) => {
-    elemetn.addEventListener('keydown', (evt) => {
-      if (isEscapeKey(evt)) {
-        evt.preventDefault();
-        evt.stopPropagation();
-      }
-    });
-  });
-};
-
-const removeEventListenerKeydown = (elements) => {
-  elements.forEach((elemetn) => {
-    elemetn.removeEventListener('keydown', (evt) => {
-      if (isEscapeKey(evt)) {
-        evt.preventDefault();
-        evt.stopPropagation();
-      }
-    });
-  });
-};
-
-function showModal() {
-  body.classList.add('modal-open');
-  blockUploadOverlay.classList.remove('hidden');
-
+function showModalForm() {
+  showModal(blockUploadOverlay);
   document.addEventListener('keydown', onDocumentKeydown);
-
-  buttonClose.addEventListener('click', () => {
-    hideModal();
-  });
-
+  addOnButtonCloseClick(buttonClose, hideModalForm);
   addEventListenerKeydown(fieldsText);
 }
 
-function hideModal() {
-  body.classList.remove('modal-open');
-  blockUploadOverlay.classList.add('hidden');
-
+function hideModalForm() {
+  hideModal(blockUploadOverlay);
   document.removeEventListener('keydown', onDocumentKeydown);
-
-  buttonClose.removeEventListener('click', () => {
-    hideModal();
-  });
-
-  removeEventListenerKeydown(fieldsText);
-
+  addOnButtonCloseClick(buttonClose, hideModalForm, false);
+  addEventListenerKeydown(fieldsText, false);
   formUpload.reset();
 }
 
@@ -85,10 +61,7 @@ pristine.addValidator(
   HASHTAG_ERROR_TEXT
 );
 
-const onFormSubmit = (evt) => {
-  evt.preventDefault();
-  pristine.validate();
-};
-
 fieldUploadFile.addEventListener('change', onInputFileChange);
-formUpload.addEventListener('submit', onFormSubmit);
+formUpload.addEventListener('submit', () => {
+  pristine.validate();
+});

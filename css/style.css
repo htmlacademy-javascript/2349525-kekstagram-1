@@ -1410,7 +1410,10 @@ main {
 }
 
 .img-upload__field-wrapper--invalid {
-  color: #ff0000;
-  font-size: 18px;
-  font-weight: 700;
+  padding: 5px;
+  border: 2px solid #ff0000;
+  line-height: 18px;
+  text-align: left;
+  text-transform: none;
+  white-space: pre;
 }
