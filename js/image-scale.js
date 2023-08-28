@@ -1,14 +1,9 @@
-import {imagePreview} from './form.js';
+import {imagePreview, buttonSmaller, buttonBigger, fieldScale, scale} from './form.js';
 
 const SCALE_MIN = 25;
 const SCALE_MAX = 100;
 const SCALE_STEP = 25;
 const SCALE_DEFAULT = 100;
-
-const buttonSmaller = document.querySelector('.scale__control--smaller');
-const buttonBigger = document.querySelector('.scale__control--bigger');
-const fieldScale = document.querySelector('.scale__control--value');
-const scale = document.querySelector('.scale');
 
 const updateScaleValue = (newValue) => {
   imagePreview.style.transform = `scale(${newValue * 0.01})`;
@@ -37,4 +32,3 @@ scale.addEventListener('click', (evt) => {
 export const resetScaleImage = () => {
   updateScaleValue(SCALE_DEFAULT);
 };
-

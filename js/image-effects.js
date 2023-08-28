@@ -1,4 +1,4 @@
-import {imagePreview} from './form.js';
+import {imagePreview, blockEffects, sliderContainer, slider, fieldEffectLevel} from './form.js';
 
 const SLIDER_SETTINGS = [
   {
@@ -59,11 +59,6 @@ const SLIDER_SETTINGS = [
 
 const DEFAULT_SETTINGS = SLIDER_SETTINGS[0];
 let newSettings = DEFAULT_SETTINGS;
-
-const blockEffects = document.querySelector('.effects');
-const sliderContainer = document.querySelector('.img-upload__effect-level');
-const slider = document.querySelector('.effect-level__slider');
-const fieldEffectLevel = document.querySelector('.effect-level__value');
 
 const isDefault = () => newSettings === DEFAULT_SETTINGS;
 

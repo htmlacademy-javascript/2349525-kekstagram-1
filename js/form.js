@@ -1,10 +1,7 @@
-
 import {isEscapeKey} from './helpers/test-keys.js';
 import {validateTags} from './validate-tags.js';
 import {showModal, hideModal} from './modal.js';
 import {addOnButtonCloseClick, addEventListenerKeydown} from './helpers/event-listeners.js';
-import {resetScaleImage} from './image-scale.js';
-import {resetEffectsImage} from './image-effects.js';
 
 const sectionImgUpload = document.querySelector('.img-upload');
 const formUpload = sectionImgUpload.querySelector('.img-upload__form');
@@ -15,7 +12,16 @@ const fieldComment = formUpload.querySelector('.text__description');
 const buttonClose = formUpload.querySelector('#upload-cancel');
 const fieldsText = [fieldHashtag, fieldComment];
 
+export const blockEffects = sectionImgUpload.querySelector('.effects');
+export const sliderContainer = sectionImgUpload.querySelector('.img-upload__effect-level');
+export const slider = sectionImgUpload.querySelector('.effect-level__slider');
+export const fieldEffectLevel = sectionImgUpload.querySelector('.effect-level__value');
 export const imagePreview = sectionImgUpload.querySelector('.img-upload__preview img');
+
+export const buttonSmaller = sectionImgUpload.querySelector('.scale__control--smaller');
+export const buttonBigger = sectionImgUpload.querySelector('.scale__control--bigger');
+export const fieldScale = sectionImgUpload.querySelector('.scale__control--value');
+export const scale = sectionImgUpload.querySelector('.scale');
 
 const HASHTAG_ERROR_TEXT = 'Некорректно заполнено поле "Хэш-тег"';
 
@@ -41,8 +47,6 @@ function showModalForm() {
   document.addEventListener('keydown', onDocumentKeydown);
   addOnButtonCloseClick(buttonClose, hideModalForm);
   addEventListenerKeydown(fieldsText);
-  resetScaleImage();
-  resetEffectsImage();
   pristine.reset();
 }
 
@@ -52,8 +56,6 @@ function hideModalForm() {
   addOnButtonCloseClick(buttonClose, hideModalForm, false);
   addEventListenerKeydown(fieldsText, false);
   formUpload.reset();
-  resetScaleImage();
-  resetEffectsImage();
   pristine.reset();
 }
 
