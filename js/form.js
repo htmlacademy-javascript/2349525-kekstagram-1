@@ -1,3 +1,4 @@
+
 import {isEscapeKey} from './helpers/test-keys.js';
 import {validateTags} from './validate-tags.js';
 import {showModal, hideModal} from './modal.js';
@@ -5,13 +6,16 @@ import {addOnButtonCloseClick, addEventListenerKeydown} from './helpers/event-li
 import {resetScaleImage} from './image-scale.js';
 import {resetEffectsImage} from './image-effects.js';
 
-const formUpload = document.querySelector('.img-upload__form');
+const sectionImgUpload = document.querySelector('.img-upload');
+const formUpload = sectionImgUpload.querySelector('.img-upload__form');
 const blockUploadOverlay = formUpload.querySelector('.img-upload__overlay');
 const fieldUploadFile = formUpload.querySelector('#upload-file');
 const fieldHashtag = formUpload.querySelector('.text__hashtags');
 const fieldComment = formUpload.querySelector('.text__description');
 const buttonClose = formUpload.querySelector('#upload-cancel');
 const fieldsText = [fieldHashtag, fieldComment];
+
+export const imagePreview = sectionImgUpload.querySelector('.img-upload__preview img');
 
 const HASHTAG_ERROR_TEXT = 'Некорректно заполнено поле "Хэш-тег"';
 
