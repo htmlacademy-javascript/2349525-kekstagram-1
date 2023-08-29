@@ -11,28 +11,19 @@ const createMessage = (template) => {
   body.append(fragment);
 };
 
-export const hideSuccessMessage = () => {
-  const messageSuccess = body.querySelector('.success');
+export const hideMessage = (state) => {
+  const message = body.querySelector(`.${state}`);
+  message.remove();
   document.removeEventListener('keydown', onDocumentKeydown);
   document.removeEventListener('click', onDocumentClick);
-  messageSuccess.remove();
-};
-
-export const hideErrorMessage = () => {
-  const messageError = body.querySelector('.error');
-  document.removeEventListener('keydown', onDocumentKeydown);
-  document.removeEventListener('click', onDocumentClick);
-  messageError.remove();
 };
 
 export const showMessage = (state) => {
-  if (state === 'success') {
-    createMessage(templateMessageSuccess);
-  } else {
-    createMessage(templateMessageError);
-  }
+  createMessage(state === 'success' ? templateMessageSuccess : templateMessageError);
   const buttonClose = body.querySelector(`.${state}__button`);
-  buttonClose.addEventListener('click', state === 'success' ? hideSuccessMessage : hideErrorMessage);
+  buttonClose.addEventListener('click', () => {
+    hideMessage(state);
+  });
   document.addEventListener('keydown', onDocumentKeydown);
   document.addEventListener('click', onDocumentClick);
 };
@@ -53,8 +44,9 @@ function onDocumentClick (evt) {
 
 function closeMessage () {
   if (body.querySelector('.success') !== null) {
-    hideSuccessMessage();
-  } else if (body.querySelector('.error') !== null) {
-    hideErrorMessage();
+    hideMessage('success');
+  }
+  if (body.querySelector('.error') !== null) {
+    hideMessage('error');
   }
 }
