@@ -1,5 +1,6 @@
-import {createArrayMedia} from './create-array-media.js';
-import {renderGallery} from './render-gallery.js';
-import './form.js';
+import {runRenderGallery} from './render-gallery.js';
+import {hideModalForm, setOnFormSubmit} from './form.js';
 
-renderGallery(createArrayMedia());
+runRenderGallery();
+
+setOnFormSubmit(hideModalForm);
