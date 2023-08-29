@@ -4,7 +4,7 @@ import {showModal, hideModal} from './modal.js';
 import {addOnButtonCloseClick, addEventListenerKeydown} from './helpers/event-listeners.js';
 import {sendData} from './api.js';
 import {showAlert} from './helpers/show-alert.js';
-import {showSuccessMessage, showErrorMessage} from './modal-message.js';
+import {showMessage} from './modal-message.js';
 
 const sectionImgUpload = document.querySelector('.img-upload');
 const formUpload = sectionImgUpload.querySelector('.img-upload__form');
@@ -92,11 +92,11 @@ export const setOnFormSubmit = (onSuccess) => {
       blockSubmitButton();
       sendData(new FormData(formUpload))
         .then(onSuccess)
-        .then(showSuccessMessage)
+        .then(showMessage('success'))
         .catch(
           (err) => {
             showAlert(err.message);
-            showErrorMessage();
+            showMessage('error');
           }
         )
         .finally(unblockSubmitButton);

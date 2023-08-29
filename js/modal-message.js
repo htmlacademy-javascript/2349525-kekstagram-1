@@ -18,14 +18,6 @@ export const hideSuccessMessage = () => {
   messageSuccess.remove();
 };
 
-export const showSuccessMessage = () => {
-  createMessage(templateMessageSuccess);
-  const buttonSuccess = body.querySelector('.success__button');
-  buttonSuccess.addEventListener('click', hideSuccessMessage);
-  document.addEventListener('keydown', onDocumentKeydown);
-  document.addEventListener('click', onDocumentClick);
-};
-
 export const hideErrorMessage = () => {
   const messageError = body.querySelector('.error');
   document.removeEventListener('keydown', onDocumentKeydown);
@@ -33,10 +25,14 @@ export const hideErrorMessage = () => {
   messageError.remove();
 };
 
-export const showErrorMessage = () => {
-  createMessage(templateMessageError);
-  const buttonError = body.querySelector('.error__button');
-  buttonError.addEventListener('click', hideErrorMessage);
+export const showMessage = (state) => {
+  if (state === 'success') {
+    createMessage(templateMessageSuccess);
+  } else {
+    createMessage(templateMessageError);
+  }
+  const buttonClose = body.querySelector(`.${state}__button`);
+  buttonClose.addEventListener('click', state === 'success' ? hideSuccessMessage : hideErrorMessage);
   document.addEventListener('keydown', onDocumentKeydown);
   document.addEventListener('click', onDocumentClick);
 };
