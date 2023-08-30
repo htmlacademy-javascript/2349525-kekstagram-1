@@ -27,6 +27,7 @@ export const buttonBigger = sectionImgUpload.querySelector('.scale__control--big
 export const fieldScale = sectionImgUpload.querySelector('.scale__control--value');
 export const scale = sectionImgUpload.querySelector('.scale');
 
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 const HASHTAG_ERROR_TEXT = 'Некорректно заполнено поле "Хэш-тег"';
 
 const buttonSubmitText = {
@@ -40,8 +41,19 @@ const pristine = new Pristine(formUpload, {
   errorTextClass: 'img-upload__message--invalid',
 });
 
+const showChosenFile = () => {
+  const file = fieldUploadFile.files[0];
+  const fileName = file.name.toLowerCase();
+  const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+
+  if (matches) {
+    imagePreview.src = URL.createObjectURL(file);
+  }
+};
+
 const onInputFileChange = () => {
   showModalForm();
+  showChosenFile();
 };
 
 function onDocumentKeydown(evt) {
