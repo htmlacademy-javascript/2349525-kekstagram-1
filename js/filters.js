@@ -16,6 +16,17 @@ const sortRandomly = () => Math.random() - 0.5;
 
 const sortByComments = (elementA, elementB) => elementB.comments.length - elementA.comments.length;
 
+const getFilteredArray = (arrayMedia, chosenFilter) => {
+  const newArray = arrayMedia.slice();
+  if (chosenFilter.id === Filters.RANDOM) {
+    return newArray.sort(sortRandomly).slice(0, MAX_COUNT_RANDOM_ELEMENTS);
+  }
+  if (chosenFilter.id === Filters.DISCUSSED) {
+    return newArray.sort(sortByComments);
+  }
+  return newArray;
+};
+
 const onClickButtonFilters = (evt, arrayMedia, callback) => {
   if (evt.target.className === 'img-filters__button' && evt.target !== currentFilter) {
     currentFilter.classList.remove('img-filters__button--active');
@@ -33,14 +44,3 @@ export const showFilters = (arrayMedia) => {
     onClickButtonFilters(evt, arrayMedia, debounce(renderGallery, TIMEOUT_DELAY));
   });
 };
-
-function getFilteredArray (arrayMedia, chosenFilter) {
-  const newArray = arrayMedia.slice();
-  if (chosenFilter.id === Filters.RANDOM) {
-    return newArray.sort(sortRandomly).slice(0, MAX_COUNT_RANDOM_ELEMENTS);
-  }
-  if (chosenFilter.id === Filters.DISCUSSED) {
-    return newArray.sort(sortByComments);
-  }
-  return newArray;
-}

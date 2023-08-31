@@ -1,3 +1,2 @@
-export const getTemplate = function (parameterID, parameterClass) {
-  return document.querySelector(parameterID).content.querySelector(parameterClass);
-};
+export const getTemplate = (parameterID, parameterClass) =>
+  document.querySelector(parameterID).content.querySelector(parameterClass);

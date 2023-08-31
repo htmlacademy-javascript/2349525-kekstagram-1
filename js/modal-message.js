@@ -5,6 +5,20 @@ const body = document.querySelector('body');
 const templateMessageSuccess = getTemplate('#success', '.success');
 const templateMessageError = getTemplate('#error', '.error');
 
+const onDocumentKeydown = (evt) => {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    closeMessage();
+  }
+};
+
+const onDocumentClick = (evt) => {
+  if (evt.target === body.querySelector('.success') || evt.target === body.querySelector('.error')) {
+    evt.preventDefault();
+    closeMessage();
+  }
+};
+
 const createMessage = (template) => {
   const fragment = document.createDocumentFragment();
   fragment.append(template);
@@ -27,20 +41,6 @@ export const showMessage = (state) => {
   document.addEventListener('keydown', onDocumentKeydown);
   document.addEventListener('click', onDocumentClick);
 };
-
-function onDocumentKeydown (evt) {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    closeMessage();
-  }
-}
-
-function onDocumentClick (evt) {
-  if (evt.target === body.querySelector('.success') || evt.target === body.querySelector('.error')) {
-    evt.preventDefault();
-    closeMessage();
-  }
-}
 
 function closeMessage () {
   if (body.querySelector('.success') !== null) {
