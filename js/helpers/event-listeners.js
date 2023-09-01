@@ -1,6 +1,6 @@
 import {isEscapeKey} from './test-keys.js';
 
-export const addOnButtonCloseClick = function (element, functionClose, add = true) {
+export const addOnButtonCloseClick = (element, functionClose, add = true) => {
   if (add) {
     element.addEventListener('click', functionClose);
   } else {
