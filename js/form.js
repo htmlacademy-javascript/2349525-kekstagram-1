@@ -56,12 +56,12 @@ const onInputFileChange = () => {
   showChosenFile();
 };
 
-function onDocumentKeydown(evt) {
+const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
     hideModalForm();
   }
-}
+};
 
 export function showModalForm() {
   showModal(blockUploadOverlay);
