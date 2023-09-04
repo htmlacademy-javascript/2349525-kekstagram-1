@@ -6,30 +6,32 @@ import {showFilters} from './filters.js';
 
 const container = document.querySelector('.pictures');
 
-export const renderGallery = (arrayMedia) => {
+export const renderGallery = (arrayMedia, firstRender = false) => {
   renderThumbnails(arrayMedia);
 
-  container.addEventListener('click', (evt) => {
-    const thumbnail = evt.target.closest('[data-thumbnail-id]');
+  if (firstRender) {
+    container.addEventListener('click', (evt) => {
+      const thumbnail = evt.target.closest('[data-thumbnail-id]');
 
-    if (!thumbnail) {
-      return;
-    }
+      if (!thumbnail) {
+        return;
+      }
 
-    evt.preventDefault();
+      evt.preventDefault();
 
-    const elementMedia = arrayMedia.find(
-      (item) => item.id === +thumbnail.dataset.thumbnailId
-    );
+      const elementMedia = arrayMedia.find(
+        (item) => item.id === +thumbnail.dataset.thumbnailId
+      );
 
-    showModalMedia(elementMedia);
-  });
+      showModalMedia(elementMedia);
+    });
+  }
 };
 
 export const runRenderGallery = async () => {
   try {
     const data = await getData();
-    renderGallery(data);
+    renderGallery(data, true);
     showFilters(data);
   } catch (err) {
     showAlert(err.message);
