@@ -2,6 +2,7 @@ import {renderGallery} from './render-gallery.js';
 import {debounce} from './helpers/debounce.js';
 
 const sectionFilters = document.querySelector('.img-filters');
+const formFilters = document.querySelector('.img-filters__form');
 let currentFilter = sectionFilters.querySelector('.img-filters__button--active');
 
 const TIMEOUT_DELAY = 500;
@@ -40,7 +41,7 @@ export const showFilters = (arrayMedia) => {
   if (sectionFilters.classList.contains('img-filters--inactive')) {
     sectionFilters.classList.remove('img-filters--inactive');
   }
-  sectionFilters.addEventListener('click', (evt) => {
+  formFilters.addEventListener('click', (evt) => {
     onClickButtonFilters(evt, arrayMedia, debounce(renderGallery, TIMEOUT_DELAY));
   });
 };
